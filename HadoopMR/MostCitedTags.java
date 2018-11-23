@@ -12,13 +12,14 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
+import org.apache.hadoop.mapreduce.lib.input.KeyValueTextInputFormat;
 
 public class MostCitedTags {
     public static void main(String[] args) throws Exception {
         Configuration conf = new Configuration();
 
         // Job 1 : Tag들의 숫자를 센다
-        Job job1 = Job1.getInstance(conf, "Most Cited Tags Counting");
+        Job job1 = job1.getInstance(conf, "Most Cited Tags Counting");
 
         // Use the MostCitedTags.class file to point to the job jar
         job1.setJarByClass(MostCitedTags.class);
