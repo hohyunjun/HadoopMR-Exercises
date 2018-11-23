@@ -25,6 +25,9 @@ public class DistinctMovieCount {
         // Use the WordCount.class file to point to the job jar
         job.setJarByClass(DistinctMovieCount.class);
 
+        job.setMapOutputKeyClass(IntWritable.class);
+        job.setMapOutputValueClass(Text.class);
+
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
 
