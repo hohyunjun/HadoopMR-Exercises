@@ -99,7 +99,7 @@ public class MostCitedTags {
 
         public void map(Text key, Text value, Context context)
                 throws IOException, InterruptedException {
-            frequency.set(Integer.parseInt(value.toString()));
+            frequency.set(Integer.parseInt(value.toString().trim()));
             context.write(frequency, key);
         }
     }
