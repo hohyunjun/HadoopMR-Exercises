@@ -53,7 +53,7 @@ public class FilmNoirGenres {
             boolean FilmNoirChecking = false;
 
             for (String genre : genres) {
-                if(genre == "Film-Noir"){
+                if(genre.equals("Film-Noir")){
                     FilmNoirChecking = true;
                     break;
                 }
