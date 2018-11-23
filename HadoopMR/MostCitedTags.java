@@ -71,9 +71,9 @@ public class MostCitedTags {
         private Text word = new Text();
 
         public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
-            String line = value.toString();
+            String line = value.toString().trim();
             String[] fields = line.split(",");
-            String tagField = fields[fields.length - 2].trim();
+            String tagField = fields[fields.length - 2];
 
             word.set(tagField);
             context.write(word, one);
@@ -99,7 +99,7 @@ public class MostCitedTags {
 
         public void map(Text key, Text value, Context context)
                 throws IOException, InterruptedException {
-            frequency.set(Integer.parseInt(value.toString().trim()));
+            frequency.set(Integer.parseInt(value.toString()));
             context.write(frequency, key);
         }
     }
