@@ -3,8 +3,12 @@ import java.io.IOException;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
+//Comparator
+import org.apache.hadoop.io.IntWritable.Comparator;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
+//Comparator
+import org.apache.hadoop.io.WritableComparator;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
@@ -42,20 +46,21 @@ public class MostCitedTags {
 
         // Job2 : Tag들을 언급된 횟수에 따라 Sorting
         Job job2 = Job.getInstance(conf, "Sort By Cited Count Value");
-
-        job2.setNumReduceTasks(1);
-
         job2.setJarByClass(MostCitedTags.class);
 
-        job2.setMapOutputKeyClass(IntWritable.class);
-        job2.setMapOutputValueClass(Text.class);
-
-        job2.setOutputKeyClass(Text.class);
-        job2.setOutputValueClass(IntWritable.class);
-
+        // setup MapReduce
         job2.setMapperClass(SortByValueMap.class);
         job2.setReducerClass(SortByValueReduce.class);
+        job2.setNumReduceTasks(1);
 
+        // Specific key/value
+        job2.setMapOutputKeyClass(IntWritable.class);
+        job2.setMapOutputValueClass(Text.class);
+        job2.setOutputKeyClass(Text.class);
+        job2.setOutputValueClass(IntWritable.class);
+        job2.setSortComparatorClass(IntComparator.class);
+
+        // Input / Output Format
         job2.setInputFormatClass(KeyValueTextInputFormat.class);
         job2.setOutputFormatClass(TextOutputFormat.class);
 
@@ -64,6 +69,20 @@ public class MostCitedTags {
         FileOutputFormat.setOutputPath(job2, new Path(args[1] + "/final"));
 
         job2.waitForCompletion(true);
+    }
+
+    public static class IntComparator extends WritableComparator {
+        public IntComparator(){
+            super(IntWritable.class);
+        }
+
+        @Override
+        public int compare(byte[] b1, int s1, int l1, byte[] b2, int s2, int l2){
+            Integer v1 = ByteBuffer.wrap(b1, s1, l1).getInt();
+            Integer v2 = ByteBuffer.wrap(b2, s2, l2).getInt();
+
+            return v1.compareTo(v2) * (-1);
+        }
     }
 
     public static class TagsCounterMap extends Mapper<LongWritable, Text, Text, IntWritable> {
