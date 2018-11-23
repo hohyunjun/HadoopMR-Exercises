@@ -13,15 +13,15 @@ import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 
-public class DistinctWordCount {
+public class DistinctMovieCount {
     public static void main(String[] args) throws Exception {
         Configuration conf = new Configuration();
 
         // Create a new job
-        Job job = Job.getInstance(conf, "distinct wordcount");
+        Job job = Job.getInstance(conf, "distinct moviecount");
 
         // Use the WordCount.class file to point to the job jar
-        job.setJarByClass(DistinctWordCount.class);
+        job.setJarByClass(DistinctMovieCount.class);
 
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
