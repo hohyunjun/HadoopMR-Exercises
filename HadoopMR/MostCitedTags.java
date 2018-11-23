@@ -94,6 +94,7 @@ public class MostCitedTags {
     }
 
     public static class SortByValueMap extends Mapper<Text, Text, IntWritable, Text> {
+        private Text word = new Text();
         IntWritable frequency = new IntWritable();
 
         public void map(Text key, Text value, Context context)
@@ -106,7 +107,7 @@ public class MostCitedTags {
     public static class SortByValueReduce extends Reducer<IntWritable, Text, Text, IntWritable> {
         public void reduce(IntWritable key, Iterable<Text> values, Context context)
                 throws IOException, InterruptedException {
-            for(Text value : values){
+            for (Text value : values) {
                 context.write(value, key);
             }
         }
