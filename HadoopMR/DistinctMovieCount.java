@@ -69,7 +69,7 @@ public class DistinctMovieCount {
                 titles.add(value.toString());
             }
             word.set("titles");
-            context.write(word, new IntWritable(titles.size()));
+            context.write(word, new IntWritable(titles.size()-1));
         }
     }
 }
