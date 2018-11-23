@@ -74,8 +74,8 @@ public class MostCitedTags {
             String line = value.toString();
             line = line.trim();
             line = line.replaceAll("\\p{Z}","");
-            string tmp = "" + (char)32;
-            string tmp2 = "" + (char)9;
+            String tmp = "" + (char)32;
+            String tmp2 = "" + (char)9;
             line = line.replaceAll(tmp, "");
             line = line.replaceAll(tmp2,"");
             String[] fields = line.split(",");
