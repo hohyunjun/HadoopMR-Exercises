@@ -72,6 +72,7 @@ public class MostCitedTags {
 
         public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
             String line = value.toString();
+            line = line.trim();
             line = line.replaceAll("\\p{Z}","");
             String[] fields = line.split(",");
             String tagField = fields[fields.length - 2];
