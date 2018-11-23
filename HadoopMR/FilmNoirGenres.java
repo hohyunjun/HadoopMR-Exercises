@@ -50,7 +50,7 @@ public class FilmNoirGenres {
             String[] fields = line.split(",");
             String lastField = fields[fields.length - 1];
             String[] genres = lastField.split("\\|");
-            Bool FilmNoirChecking = false;
+            boolean FilmNoirChecking = false;
 
             for (String genre : genres) {
                 if(genre == "Film-Noir"){
@@ -60,7 +60,7 @@ public class FilmNoirGenres {
             }
 
             word.set("Film-Noir");
-            if(FilmNoirChecing){
+            if(FilmNoirChecking){
                 context.write(word, one);
             }else{
                 context.write(word, zero);
