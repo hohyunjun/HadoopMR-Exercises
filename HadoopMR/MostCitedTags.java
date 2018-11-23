@@ -19,7 +19,7 @@ public class MostCitedTags {
         Configuration conf = new Configuration();
 
         // Job 1 : Tag들의 숫자를 센다
-        Job job1 = job1.getInstance(conf, "Most Cited Tags Counting");
+        Job job1 = Job.getInstance(conf, "Most Cited Tags Counting");
 
         // Use the MostCitedTags.class file to point to the job jar
         job1.setJarByClass(MostCitedTags.class);
